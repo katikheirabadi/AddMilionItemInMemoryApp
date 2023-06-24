@@ -26,36 +26,6 @@ Console.WriteLine($"Time :{time.Hours}:{time.Minutes}:{time.Seconds}");
 Console.WriteLine($"List's Count :{list.Length}\nType of list's item : class");
 Console.WriteLine("-----------------------------------------------------");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void Go()
-{
-    Process Proc = Process.GetCurrentProcess();
-    long AffinityMask = (long)Proc.ProcessorAffinity;
-
-}
 public struct GuIdHolder
 {
     private readonly Guid id;
