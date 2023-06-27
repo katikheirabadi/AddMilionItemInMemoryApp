@@ -2,20 +2,24 @@
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Threading.Channels;
 using System.Threading.Tasks.Dataflow;
 
-var structure = new BufferBlock<GuIdHolder>();
-var size = 500000000;
+var size = 200000000;
+var structure = Channel.CreateUnbounded<GuIdHolder>();
 var watch = new Stopwatch();
 watch.Start();
-Parallel.For(0, size, i => structure.Post(new GuIdHolder(new Guid())));
+for (int i = 0; i < size; i++)
+{
+  await  structure.Writer.WriteAsync(new GuIdHolder(Guid.NewGuid()));
+}
 watch.Stop();
 var time = watch.Elapsed;
 Console.WriteLine($"Time :{time.Hours}:{time.Minutes}:{time.Seconds}");
 
 public struct GuIdHolder
 {
-    private readonly Guid id;
+    public readonly Guid id;
     public GuIdHolder(Guid id)
     {
 
